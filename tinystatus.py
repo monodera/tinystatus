@@ -25,6 +25,7 @@ INCIDENTS_FILE = os.getenv("INCIDENTS_FILE", "incidents.md")
 TEMPLATE_FILE = os.getenv("TEMPLATE_FILE", "index.html.theme")
 HISTORY_TEMPLATE_FILE = os.getenv("HISTORY_TEMPLATE_FILE", "history.html.theme")
 STATUS_HISTORY_FILE = os.getenv("STATUS_HISTORY_FILE", "history.json")
+OUTPUT_DIR = os.getenv("OUTPUT_DIR", ".")
 
 
 # Service check functions
@@ -37,7 +38,7 @@ async def check_http(url, expected_code, strict_ssl_check=True):
                 # print(f"{url=}, {response.status=}")
                 return response.status == expected_code
         except Exception as e:
-            # print(f"{e=}")
+            print(f"{e=}")
             return False
 
 
@@ -135,14 +136,14 @@ async def monitor_services():
                 incidents=incidents,
                 last_updated=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             )
-            with open("index.html", "w") as f:
+            with open(os.path.join(OUTPUT_DIR, "index.html"), "w") as f:
                 f.write(html)
 
             history_html = history_template.render(
                 history=load_history(),
                 last_updated=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             )
-            with open("history.html", "w") as f:
+            with open(os.path.join(OUTPUT_DIR, "history.html"), "w") as f:
                 f.write(history_html)
 
             logging.info(f"Status page and history updated at {datetime.now()}")
