@@ -13,11 +13,13 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background: #f4f4f4;
+            /* background: #f4f4f4; */
+            background: white;
         }
 
         h1,
-        h2 {
+        h2,
+        h3 {
             color: #2c3e50;
             text-align: center;
         }
@@ -120,6 +122,11 @@
     <div class="incidents">
         {{ incidents | safe }}
     </div> #}
+    <h3>Disclaimer</h3>
+    <p>This is an unofficial page made by Masato Onodera. Long-term support for this site is neither
+        guaranteed nor planned. For reliable server status monitoring, please use the official STS alarm system.
+        Use of this website is at your own risk. We make no warranties about the accuracy, reliability, or
+        availability of the information presented here.</p>
     <div class="footer">
         <p>Last updated: {{ last_updated }}</p>
         <p>Powered by <a href="https://github.com/harsxv/tinystatus">TinyStatus</a></p>
